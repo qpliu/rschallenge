@@ -158,6 +158,7 @@ func reducedGrid(img image.Image) []ScoreBar {
 	}
 
 	// blur
+	blurred := make([]ScoreBar, w*h)
 	for x := 1; x < w-1; x++ {
 		for y := 3; y < h-3; y++ {
 			block := [5]int{0, 0, 0, 0, 0}
@@ -168,20 +169,20 @@ func reducedGrid(img image.Image) []ScoreBar {
 			}
 			switch {
 			case block[Purple] > 10 && block[Purple] > block[Orange] && block[Purple] > block[Blue]:
-				grid[x*h+y] = Purple
+				blurred[x*h+y] = Purple
 			case block[Orange] > 10 && block[Orange] > block[Purple] && block[Orange] > block[Blue]:
-				grid[x*h+y] = Orange
+				blurred[x*h+y] = Orange
 			case block[Blue] > 10 && block[Blue] > block[Purple] && block[Blue] > block[Orange]:
-				grid[x*h+y] = Blue
+				blurred[x*h+y] = Blue
 			case block[Black] < 9:
-				grid[x*h+y] = White
+				blurred[x*h+y] = White
 			default:
-				grid[x*h+y] = Black
+				blurred[x*h+y] = Black
 			}
 		}
 	}
 
-	return grid
+	return blurred
 }
 
 func brightnessRange(img image.Image) (uint32, uint32) {
