@@ -104,6 +104,11 @@ func scorebar(w, h int, grid []ScoreBar) (int, int, [][2]int) {
 			stripeHeight = 0
 		}
 	}
+	if stripeWidth > maxStripeWidth && stripeHeight > maxStripeHeight {
+		maxStripeX = w/2 - stripeWidth
+		maxStripeHeight = stripeHeight
+		maxStripeWidth = stripeWidth
+	}
 	return maxStripeX, maxStripeX + maxStripeWidth, stripes
 }
 
