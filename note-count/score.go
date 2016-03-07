@@ -29,6 +29,9 @@ func ComputeScores(scores []Score) {
 					scores[i].Pct100 += 10 * n
 				}
 			} else {
+				if len(frac) > 2 {
+					frac = frac[0:2]
+				}
 				if frac[0] == '0' {
 					frac = frac[1:]
 				}

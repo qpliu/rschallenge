@@ -9,7 +9,7 @@ loop:
 	for n := lowerBound; n < upperBound; n++ {
 		for _, p := range percents {
 			hits := (n*p + 5000) / 10000
-			if (hits*100000+5)/(10*n) != p {
+			if hits*10000/n != p {
 				continue loop
 			}
 		}
