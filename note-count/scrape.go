@@ -74,3 +74,19 @@ func ScrapeScores(page string) []Score {
 	}
 	return scores
 }
+
+func ScrapeChallenges(page string) []string {
+	var result []string
+	for i := 0; i < len(page); i++ {
+		if page[i] != '<' {
+			continue
+		}
+		if ok, index, value := scrapeValue(page, i, "<a href=\"/challenges/", '"'); ok {
+			i = index
+			if strings.HasPrefix(page[i:], ">") {
+				result = append(result, value)
+			}
+		}
+	}
+	return result
+}

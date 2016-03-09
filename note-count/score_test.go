@@ -41,7 +41,7 @@ func TestScore(t *testing.T) {
 			t.Errorf("Expected hits %d, got %d", expectedHits, score.Hits)
 		}
 	}
-	scores := ScrapeScores(PAGE)
+	scores := ScrapeScores(CHALLENGE_PAGE)
 	if len(scores) != 10 {
 		t.Errorf("Expected 10 scores, got %d", len(scores))
 	}

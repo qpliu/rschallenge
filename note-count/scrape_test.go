@@ -5,7 +5,539 @@ import (
 )
 
 const (
-	PAGE = `<!doctype html>
+	FRONT_PAGE = `<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Rocksmith Challenge</title>
+    <meta name="description" content="Rocksmith Challenge is a user-friendly tool to help keep track of the guitar and bass challenges of the official Rocksmith forums.">
+    <meta name="author" content="">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="/bundles/rsui/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/bundles/rsui/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bundles/rsui/colorbox/colorbox.css">
+    <link rel="stylesheet" href="/bundles/rsui/css/frontend.css?1011131">
+    </head>
+
+<body >
+    <header class="header">
+    </header>
+            <div id="nav-wrapper">
+        <div class="navbar navbar-inverse affix-top" id="navbar" data-spy="affix" data-offset-top="149">
+            <div class="navbar-inner">
+                <div class="container">
+                                                                    <ul class="nav">
+                            <li class="active">
+                                <a href="/">Home</a>
+                            </li>
+                            <li class="">
+                                <a href="/challenges">Challenges</a>
+                            </li>
+                            <li class="">
+                                <a href="/songs">Songs</a>
+                            </li>
+                            <li class="">
+                                <a href="/about">About</a>
+                            </li>
+                        </ul>
+                                                        </div>
+            </div>
+        </div>
+        </div>
+    
+    <div class="container ">
+        
+        
+        
+                            
+        <div class="row-fluid">
+    <div class="span6">
+        <div class="result">
+            <div class="result-title">
+                <h2>
+                                            <img class="instrument" src="/bundles/rsui/img/guitar.png" width="45" height="45" />
+                        <div class="week">week<br /><b>124</b></div>
+                        <a href="/challenges/403">
+                            <span class="title">
+                                <span class="arrangement">(Lead)</span>
+                                Jessica
+                            </span>
+                            <span class="artist">
+                                <span class="status text-success">ongoing</span>
+                                The Allman Brothers Band
+                            </span>
+                        </a>
+                                    </h2>
+            </div>
+                            <div class="result-content">
+                    <div class="clearfix">
+                            <div class="division">
+        <h4>Division I</h4>
+        <table>
+                            <tr>
+                <td>halsb</td>
+                <td class="score">2520714</td>
+                <td class="accuracy">99.92%</td>
+                <td class="note-streak">1173</td>
+            </tr>
+                    <tr>
+                <td>elemenohpenc</td>
+                <td class="score">1950899</td>
+                <td class="accuracy">99.06%</td>
+                <td class="note-streak">412</td>
+            </tr>
+                </table>
+    </div>
+
+                            <div class="division">
+        <h4>Division II</h4>
+        <table>
+                            <tr>
+                <td>qpliu</td>
+                <td class="score">647119</td>
+                <td class="accuracy">95.23%</td>
+                <td class="note-streak">111</td>
+            </tr>
+                    <tr>
+                <td>RollingStone222</td>
+                <td class="score">577254</td>
+                <td class="accuracy">94.76%</td>
+                <td class="note-streak">121</td>
+            </tr>
+                </table>
+    </div>
+
+                    </div>
+                    <div class="clearfix">
+                            <div class="division">
+        <h4>Division III</h4>
+        <table>
+                            <tr>
+                <td>jaq-b</td>
+                <td class="score">657822</td>
+                <td class="accuracy">91.64%</td>
+                <td class="note-streak">238</td>
+            </tr>
+                    <tr>
+                <td>Vecco34</td>
+                <td class="score">335822</td>
+                <td class="accuracy">94.12%</td>
+                <td class="note-streak">186</td>
+            </tr>
+                </table>
+    </div>
+
+                            <div class="division">
+        <h4>Division IV</h4>
+        <table>
+                    <tr><td class="no-entry">No entry</td></tr>
+                        </table>
+    </div>
+
+                    </div>
+                </div>
+                        <div class="result-link">
+                                    <a href="/challenges/403" class="btn btn-small btn-inverse"><i class="icon-white icon-eye-open"></i> Challenge details</a>
+                    <a href="http://forums.ubi.com/showthread.php/1401894-Rocksmith-2014-Guitar-Challenge-Week-124-The-Allman-Brothers-Band-Jessica-Lead" target="_blank" class="btn btn-small btn-inverse"><i class="icon-white icon-share-alt"></i> Challenge topic</a>
+                            </div>
+        </div>
+
+                <div class="result">
+            <div class="result-title">
+                <h2>
+                                            <img class="instrument" src="/bundles/rsui/img/guitar.png" width="45" height="45" />
+                        <div class="week">week<br /><b>123</b></div>
+                        <a href="/challenges/401">
+                            <span class="title">
+                                <span class="arrangement">(Lead)</span>
+                                Little Black Submarines
+                            </span>
+                            <span class="artist">
+                                <span class="status text-error">ended</span>
+                                The Black Keys
+                            </span>
+                        </a>
+                                    </h2>
+            </div>
+            <div class="result-content">
+                                    <div class="clearfix">
+                            <div class="division">
+        <h4>Division I</h4>
+        <table>
+                            <tr>
+                <td>SilentThunder_</td>
+                <td class="score">931517</td>
+                <td class="accuracy">97.04%</td>
+                <td class="note-streak">256</td>
+            </tr>
+                    <tr>
+                <td>elemenohpenc</td>
+                <td class="score">221835</td>
+                <td class="accuracy">91.38%</td>
+                <td class="note-streak">51</td>
+            </tr>
+                </table>
+    </div>
+
+                            <div class="division">
+        <h4>Division II</h4>
+        <table>
+                            <tr>
+                <td>MAng0r3</td>
+                <td class="score">425625</td>
+                <td class="accuracy">94.34%</td>
+                <td class="note-streak">100</td>
+            </tr>
+                    <tr>
+                <td>RollingStone222</td>
+                <td class="score">376390</td>
+                <td class="accuracy">93.84%</td>
+                <td class="note-streak">105</td>
+            </tr>
+                    <tr>
+                <td>Ezzy911</td>
+                <td class="score">261882</td>
+                <td class="accuracy">91.75%</td>
+                <td class="note-streak">62</td>
+            </tr>
+                    <tr>
+                <td>qpliu</td>
+                <td class="score">181361</td>
+                <td class="accuracy">91.51%</td>
+                <td class="note-streak">76</td>
+            </tr>
+                    <tr>
+                <td>rabbitts</td>
+                <td class="score">151222</td>
+                <td class="accuracy">89.91%</td>
+                <td class="note-streak">72</td>
+            </tr>
+                    <tr>
+                <td>the_xandos</td>
+                <td class="score">202436</td>
+                <td class="accuracy">87.57%</td>
+                <td class="note-streak">132</td>
+            </tr>
+                </table>
+    </div>
+
+                    </div>
+                    <div class="clearfix">
+                            <div class="division">
+        <h4>Division III</h4>
+        <table>
+                            <tr>
+                <td>jaq-b</td>
+                <td class="score">603897</td>
+                <td class="accuracy">99.47%</td>
+                <td class="note-streak">150</td>
+            </tr>
+                    <tr>
+                <td>Sl1mehunter</td>
+                <td class="score">547410</td>
+                <td class="accuracy">99.21%</td>
+                <td class="note-streak">206</td>
+            </tr>
+                    <tr>
+                <td>Z1ronJones</td>
+                <td class="score">380836</td>
+                <td class="accuracy">97.91%</td>
+                <td class="note-streak">153</td>
+            </tr>
+                    <tr>
+                <td>Vecco34</td>
+                <td class="score">259707</td>
+                <td class="accuracy">94.53%</td>
+                <td class="note-streak">94</td>
+            </tr>
+                </table>
+    </div>
+
+                            <div class="division">
+        <h4>Division IV</h4>
+        <table>
+                            <tr>
+                <td>infocat1</td>
+                <td class="score">52792</td>
+                <td class="accuracy">87.76%</td>
+                <td class="note-streak">32</td>
+            </tr>
+                    <tr>
+                <td>advalencia</td>
+                <td class="score">82580</td>
+                <td class="accuracy">94.92%</td>
+                <td class="note-streak">97</td>
+            </tr>
+                </table>
+    </div>
+
+                    </div>
+                            </div>
+            <div class="result-link">
+                <a href="/challenges/401" class="btn btn-small btn-inverse"><i class="icon-white icon-eye-open"></i> Challenge details</a>
+                <a href="http://forums.ubi.com/showthread.php/1398518-Rocksmith-2014-Guitar-Challenge-Week-123-Black-Keys-Little-Black-Subs-Lead" target="_blank" class="btn btn-small btn-inverse"><i class="icon-white icon-share-alt"></i> Challenge topic</a>
+            </div>
+        </div>
+            </div>
+
+    <div class="span6">
+        <div class="result">
+            <div class="result-title">
+                <h2>
+                                            <img class="instrument" src="/bundles/rsui/img/bass.png" width="45" height="45" />
+                        <div class="week">week<br /><b>124</b></div>
+                        <a href="/challenges/402">
+                            <span class="title">
+                                Gimme Three Steps
+                            </span>
+                            <span class="artist">
+                                <span class="status text-success">ongoing</span>
+                                Lynyrd Skynyrd
+                            </span>
+                        </a>
+                                    </h2>
+            </div>
+                            <div class="result-content">
+                    <div class="clearfix">
+                            <div class="division">
+        <h4>Division I</h4>
+        <table>
+                            <tr>
+                <td>Brick235</td>
+                <td class="score">1949971</td>
+                <td class="accuracy">100%</td>
+                <td class="note-streak">906</td>
+            </tr>
+                    <tr>
+                <td>EvoKondo</td>
+                <td class="score">1300590</td>
+                <td class="accuracy">99.11%</td>
+                <td class="note-streak">284</td>
+            </tr>
+                    <tr>
+                <td>BazzTard61</td>
+                <td class="score">1174394</td>
+                <td class="accuracy">98.23%</td>
+                <td class="note-streak">286</td>
+            </tr>
+                </table>
+    </div>
+
+                            <div class="division">
+        <h4>Division II</h4>
+        <table>
+                            <tr>
+                <td>RollingStone222</td>
+                <td class="score">397733</td>
+                <td class="accuracy">96.35%</td>
+                <td class="note-streak">115</td>
+            </tr>
+                    <tr>
+                <td>jaq-b</td>
+                <td class="score">365313</td>
+                <td class="accuracy">93.48%</td>
+                <td class="note-streak">114</td>
+            </tr>
+                </table>
+    </div>
+
+                    </div>
+                    <div class="clearfix">
+                            <div class="division">
+        <h4>Division III</h4>
+        <table>
+                            <tr>
+                <td>daddy_felix</td>
+                <td class="score">192884</td>
+                <td class="accuracy">89.07%</td>
+                <td class="note-streak">57</td>
+            </tr>
+                    <tr>
+                <td>TheDeathryder</td>
+                <td class="score">258368</td>
+                <td class="accuracy">96.93%</td>
+                <td class="note-streak">131</td>
+            </tr>
+                </table>
+    </div>
+
+                            <div class="division">
+        <h4>Division IV</h4>
+        <table>
+                    <tr><td class="no-entry">No entry</td></tr>
+                        </table>
+    </div>
+
+                    </div>
+                </div>
+                        <div class="result-link">
+                                    <a href="/challenges/402" class="btn btn-small btn-inverse"><i class="icon-white icon-eye-open"></i> Challenge details</a>
+                    <a href="http://forums.ubi.com/showthread.php/1401677-Rocksmith-2014-Bass-Challenge-Week-124-Lynyrd-Skynyrd-Gimme-Three-Steps" target="_blank" class="btn btn-small btn-inverse"><i class="icon-white icon-share-alt"></i> Challenge topic</a>
+                            </div>
+        </div>
+
+                <div class="result">
+            <div class="result-title">
+                <h2>
+                                            <img class="instrument" src="/bundles/rsui/img/bass.png" width="45" height="45" />
+                        <div class="week">week<br /><b>123</b></div>
+                        <a href="/challenges/400">
+                            <span class="title">
+                                Basket Case
+                            </span>
+                            <span class="artist">
+                                <span class="status text-error">ended</span>
+                                Green Day
+                            </span>
+                        </a>
+                                    </h2>
+            </div>
+            <div class="result-content">
+                                    <div class="clearfix">
+                            <div class="division">
+        <h4>Division I</h4>
+        <table>
+                            <tr>
+                <td>elemenohpenc</td>
+                <td class="score">1689675</td>
+                <td class="accuracy">100%</td>
+                <td class="note-streak">610</td>
+            </tr>
+                    <tr>
+                <td>Brick235</td>
+                <td class="score">1626486</td>
+                <td class="accuracy">100%</td>
+                <td class="note-streak">610</td>
+            </tr>
+                    <tr>
+                <td>SeattleSauve</td>
+                <td class="score">1623443</td>
+                <td class="accuracy">100%</td>
+                <td class="note-streak">610</td>
+            </tr>
+                    <tr>
+                <td>fjonk78</td>
+                <td class="score">1595621</td>
+                <td class="accuracy">100%</td>
+                <td class="note-streak">610</td>
+            </tr>
+                    <tr>
+                <td>TheDarkmax77</td>
+                <td class="score">1585124</td>
+                <td class="accuracy">100%</td>
+                <td class="note-streak">610</td>
+            </tr>
+                    <tr>
+                <td>BazzTard61</td>
+                <td class="score">1292121</td>
+                <td class="accuracy">99.83%</td>
+                <td class="note-streak">397</td>
+            </tr>
+                    <tr>
+                <td>Chad_Muska</td>
+                <td class="score">1245274</td>
+                <td class="accuracy">99.5%</td>
+                <td class="note-streak">399</td>
+            </tr>
+                </table>
+    </div>
+
+                            <div class="division">
+        <h4>Division II</h4>
+        <table>
+                            <tr>
+                <td>jaq-b</td>
+                <td class="score">1524824</td>
+                <td class="accuracy">100%</td>
+                <td class="note-streak">610</td>
+            </tr>
+                    <tr>
+                <td>RollingStone222</td>
+                <td class="score">1115136</td>
+                <td class="accuracy">99.34%</td>
+                <td class="note-streak">293</td>
+            </tr>
+                    <tr>
+                <td>Ezzy911</td>
+                <td class="score">495329</td>
+                <td class="accuracy">96.22%</td>
+                <td class="note-streak">98</td>
+            </tr>
+                </table>
+    </div>
+
+                    </div>
+                    <div class="clearfix">
+                            <div class="division">
+        <h4>Division III</h4>
+        <table>
+                            <tr>
+                <td>daddy_felix</td>
+                <td class="score">692445</td>
+                <td class="accuracy">97.86%</td>
+                <td class="note-streak">155</td>
+            </tr>
+                    <tr>
+                <td>demizach1</td>
+                <td class="score">653077</td>
+                <td class="accuracy">97.54%</td>
+                <td class="note-streak">142</td>
+            </tr>
+                    <tr>
+                <td>TheDeathryder</td>
+                <td class="score">182531</td>
+                <td class="accuracy">90.65%</td>
+                <td class="note-streak">53</td>
+            </tr>
+                </table>
+    </div>
+
+                            <div class="division">
+        <h4>Division IV</h4>
+        <table>
+                    <tr><td class="no-entry">No entry</td></tr>
+                        </table>
+    </div>
+
+                    </div>
+                            </div>
+            <div class="result-link">
+                <a href="/challenges/400" class="btn btn-small btn-inverse"><i class="icon-white icon-eye-open"></i> Challenge details</a>
+                <a href="http://forums.ubi.com/showthread.php/1398482-Rocksmith-2014-Bass-Challenge-Week-123-Green-Day-Basket-Case" target="_blank" class="btn btn-small btn-inverse"><i class="icon-white icon-share-alt"></i> Challenge topic</a>
+            </div>
+        </div>
+            </div>
+</div>
+
+            </div>
+
+    <footer class="footer">
+    </footer>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-38906645-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/bundles/rsui/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/bundles/rsui/colorbox/jquery.colorbox-min.js"></script>
+    <script src="/bundles/rsui/js/jquery.sortElements.js"></script>
+    <script src="/bundles/rsui/js/frontend.js?0211132"></script>
+</body>
+</html>
+
+
+`
+	CHALLENGE_PAGE = `<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -432,7 +964,7 @@ func TestScrapeScores(t *testing.T) {
 			t.Errorf("Expected noteStreak %s, got %s", expectedNoteStreak, score.NoteStreak)
 		}
 	}
-	scores := ScrapeScores(PAGE)
+	scores := ScrapeScores(CHALLENGE_PAGE)
 	if len(scores) != 10 {
 		t.Errorf("Expected 10 scores, got %d", len(scores))
 	}
@@ -446,11 +978,24 @@ func TestScrapeScores(t *testing.T) {
 	check(scores[7], "Z1ronJones", "medium", "380,836", "97.91", "153")
 	check(scores[8], "Vecco34", "medium", "259,707", "94.53", "94")
 	check(scores[9], "advalencia", "easy", "82,580", "94.92", "97")
-	artist, title := ScrapeSong(PAGE)
+	artist, title := ScrapeSong(CHALLENGE_PAGE)
 	if artist != "The Black Keys" {
 		t.Errorf("Expected %s, got %s", "The Black Keys", artist)
 	}
 	if title != "Little Black Submarines" {
 		t.Errorf("Expected %s, got %s", "Little Black Submarines", title)
 	}
+	challenges := ScrapeChallenges(FRONT_PAGE)
+	if len(challenges) != 4 {
+		t.Errorf("Expected 4 challenges, got %d", len(challenges))
+	}
+	checkChallenge := func(expected, actual string) {
+		if expected != actual {
+			t.Errorf("Expected challenge %s, got %s", expected, actual)
+		}
+	}
+	checkChallenge("403", challenges[0])
+	checkChallenge("401", challenges[1])
+	checkChallenge("402", challenges[2])
+	checkChallenge("400", challenges[3])
 }
