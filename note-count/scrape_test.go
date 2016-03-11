@@ -964,26 +964,28 @@ func TestScrapeScores(t *testing.T) {
 			t.Errorf("Expected noteStreak %s, got %s", expectedNoteStreak, score.NoteStreak)
 		}
 	}
-	scores := ScrapeScores(CHALLENGE_PAGE)
-	if len(scores) != 10 {
-		t.Errorf("Expected 10 scores, got %d", len(scores))
+	challenge := ScrapeChallenge(CHALLENGE_PAGE)
+	if len(challenge.Scores) != 10 {
+		t.Errorf("Expected 10 scores, got %d", len(challenge.Scores))
 	}
-	check(scores[0], "elemenohpenc", "hard", "221,835", "91.38", "51")
-	check(scores[1], "RollingStone222", "hard", "376,390", "93.84", "105")
-	check(scores[2], "Ezzy911", "hard", "261,882", "91.75", "62")
-	check(scores[3], "qpliu", "hard", "181,361", "91.51", "76")
-	check(scores[4], "the_xandos", "hard", "202,436", "87.57", "132")
-	check(scores[5], "jaq-b", "medium", "603,897", "99.47", "150")
-	check(scores[6], "Sl1mehunter", "medium", "547,410", "99.21", "206")
-	check(scores[7], "Z1ronJones", "medium", "380,836", "97.91", "153")
-	check(scores[8], "Vecco34", "medium", "259,707", "94.53", "94")
-	check(scores[9], "advalencia", "easy", "82,580", "94.92", "97")
-	artist, title := ScrapeSong(CHALLENGE_PAGE)
-	if artist != "The Black Keys" {
-		t.Errorf("Expected %s, got %s", "The Black Keys", artist)
+	check(challenge.Scores[0], "elemenohpenc", "hard", "221,835", "91.38", "51")
+	check(challenge.Scores[1], "RollingStone222", "hard", "376,390", "93.84", "105")
+	check(challenge.Scores[2], "Ezzy911", "hard", "261,882", "91.75", "62")
+	check(challenge.Scores[3], "qpliu", "hard", "181,361", "91.51", "76")
+	check(challenge.Scores[4], "the_xandos", "hard", "202,436", "87.57", "132")
+	check(challenge.Scores[5], "jaq-b", "medium", "603,897", "99.47", "150")
+	check(challenge.Scores[6], "Sl1mehunter", "medium", "547,410", "99.21", "206")
+	check(challenge.Scores[7], "Z1ronJones", "medium", "380,836", "97.91", "153")
+	check(challenge.Scores[8], "Vecco34", "medium", "259,707", "94.53", "94")
+	check(challenge.Scores[9], "advalencia", "easy", "82,580", "94.92", "97")
+	if challenge.Artist != "The Black Keys" {
+		t.Errorf("Expected %s, got %s", "The Black Keys", challenge.Artist)
 	}
-	if title != "Little Black Submarines" {
-		t.Errorf("Expected %s, got %s", "Little Black Submarines", title)
+	if challenge.Title != "Little Black Submarines" {
+		t.Errorf("Expected %s, got %s", "Little Black Submarines", challenge.Title)
+	}
+	if challenge.Arrangement != "guitar" {
+		t.Errorf("Expected %s, got %s", "guitar", challenge.Title)
 	}
 	challenges := ScrapeChallenges(FRONT_PAGE)
 	if len(challenges) != 4 {
@@ -994,8 +996,8 @@ func TestScrapeScores(t *testing.T) {
 			t.Errorf("Expected challenge %s, got %s", expected, actual)
 		}
 	}
-	checkChallenge("403", challenges[0])
-	checkChallenge("401", challenges[1])
-	checkChallenge("402", challenges[2])
-	checkChallenge("400", challenges[3])
+	checkChallenge("403", challenges[0].ChallengeId)
+	checkChallenge("401", challenges[1].ChallengeId)
+	checkChallenge("402", challenges[2].ChallengeId)
+	checkChallenge("400", challenges[3].ChallengeId)
 }

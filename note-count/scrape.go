@@ -16,27 +16,20 @@ func scrapeValue(page string, i int, element string, end byte) (bool, int, strin
 	return false, i, ""
 }
 
-func ScrapeSong(page string) (string, string) {
-	artist := ""
-	title := ""
-	for i := 0; i < len(page); i++ {
-		if page[i] != '<' {
-			continue
-		}
-		if ok, index, value := scrapeValue(page, i, "<span class=\"title\">", '<'); ok {
-			i = index
-			title = value
-		} else if ok, index, value := scrapeValue(page, i, "<span class=\"artist\">", '<'); ok {
-			i = index
-			artist = value
-			break
+func scrapeLine(page string, i int) (int, string) {
+	if i >= len(page) {
+		return i, ""
+	}
+	for j := i; j < len(page); j++ {
+		if page[j] == '\n' {
+			return j + 1, page[i:j]
 		}
 	}
-	return artist, title
+	return len(page), page[i:]
 }
 
-func ScrapeScores(page string) []Score {
-	var scores []Score
+func ScrapeChallenge(page string) Challenge {
+	var challenge Challenge
 	scoreIndex := -1
 	for i := 0; i < len(page); i++ {
 		if page[i] != '<' {
@@ -45,38 +38,42 @@ func ScrapeScores(page string) []Score {
 		if ok, index, name := scrapeValue(page, i, "<td class=\"user\">", '<'); ok {
 			i = index
 			scoreIndex++
-			scores = append(scores, Score{})
-			scores[scoreIndex].Name = name
+			challenge.Scores = append(challenge.Scores, Score{})
+			challenge.Scores[scoreIndex].Name = name
 			continue
 		}
 		if scoreIndex < 0 {
-			continue
-		}
-		if ok, index, difficulty := scrapeValue(page, i, "<td class=\"difficulty\" data-difficulty=\"", '"'); ok {
+			if ok, index, value := scrapeValue(page, i, "<span class=\"title\">", '<'); ok {
+				i = index
+				challenge.Title = value
+			} else if ok, index, value := scrapeValue(page, i, "<span class=\"artist\">", '<'); ok {
+				i = index
+				challenge.Artist = value
+			} else if ok, index, value := scrapeValue(page, i, "<h1 class=\"challenge-title ", '"'); ok {
+				i = index
+				challenge.Arrangement = value
+			}
+		} else if ok, index, difficulty := scrapeValue(page, i, "<td class=\"difficulty\" data-difficulty=\"", '"'); ok {
 			i = index
-			scores[scoreIndex].Difficulty = difficulty
-		}
-		if ok, index, score := scrapeValue(page, i, "<td class=\"score\" data-column=\"Score\">", '<'); ok {
+			challenge.Scores[scoreIndex].Difficulty = difficulty
+		} else if ok, index, score := scrapeValue(page, i, "<td class=\"score\" data-column=\"Score\">", '<'); ok {
 			i = index
-			scores[scoreIndex].Score = score
-			continue
-		}
-		if ok, index, accuracy := scrapeValue(page, i, "<td class=\"accuracy\" data-column=\"Accuracy\">", '<'); ok {
+			challenge.Scores[scoreIndex].Score = score
+		} else if ok, index, accuracy := scrapeValue(page, i, "<td class=\"accuracy\" data-column=\"Accuracy\">", '<'); ok {
 			i = index
-			scores[scoreIndex].Accuracy = accuracy
-			continue
-		}
-		if ok, index, noteStreak := scrapeValue(page, i, "<td class=\"note-streak\" data-column=\"NoteStreak\">", '<'); ok {
+			challenge.Scores[scoreIndex].Accuracy = accuracy
+		} else if ok, index, noteStreak := scrapeValue(page, i, "<td class=\"note-streak\" data-column=\"NoteStreak\">", '<'); ok {
 			i = index
-			scores[scoreIndex].NoteStreak = noteStreak
-			continue
+			challenge.Scores[scoreIndex].NoteStreak = noteStreak
 		}
 	}
-	return scores
+	return challenge
 }
 
-func ScrapeChallenges(page string) []string {
-	var result []string
+func ScrapeChallenges(page string) []Challenge {
+	var result []Challenge
+	challengeIndex := -1
+	inResults := false
 	for i := 0; i < len(page); i++ {
 		if page[i] != '<' {
 			continue
@@ -84,7 +81,49 @@ func ScrapeChallenges(page string) []string {
 		if ok, index, value := scrapeValue(page, i, "<a href=\"/challenges/", '"'); ok {
 			i = index
 			if strings.HasPrefix(page[i:], ">") {
-				result = append(result, value)
+				challengeIndex++
+				result = append(result, Challenge{})
+				result[challengeIndex].ChallengeId = value
+			}
+		}
+		if challengeIndex < 0 {
+			continue
+		}
+		if ok, index, value := scrapeValue(page, i, "<span class=\"arrangement\">", '<'); ok {
+			i = index
+			result[challengeIndex].Arrangement = value
+			i, value = scrapeLine(page, i)
+			i, value = scrapeLine(page, i)
+			result[challengeIndex].Title = strings.TrimSpace(value)
+		} else if ok, index, value := scrapeValue(page, i, "<span class=\"artist\"", '>'); ok {
+			i = index
+			i, value = scrapeLine(page, i)
+			i, value = scrapeLine(page, i)
+			i, value = scrapeLine(page, i)
+			result[challengeIndex].Artist = strings.TrimSpace(value)
+		}
+		if !inResults {
+			if ok, index, _ := scrapeValue(page, i, "<div class=\"result-content\"", '>'); ok {
+				i = index
+				inResults = true
+			}
+		} else {
+			if ok, index, _ := scrapeValue(page, i, "<div class=\"result-link\"", '>'); ok {
+				i = index
+				inResults = false
+			} else if ok, index, value := scrapeValue(page, i, "<td>", '<'); ok {
+				i = index
+				result[challengeIndex].Scores = append(result[challengeIndex].Scores, Score{})
+				result[challengeIndex].Scores[len(result[challengeIndex].Scores)-1].Name = value
+			} else if ok, index, value := scrapeValue(page, i, "<td class=\"score\">", '<'); ok {
+				i = index
+				result[challengeIndex].Scores[len(result[challengeIndex].Scores)-1].Score = value
+			} else if ok, index, value := scrapeValue(page, i, "<td class=\"accuracy\">", '<'); ok {
+				i = index
+				result[challengeIndex].Scores[len(result[challengeIndex].Scores)-1].Accuracy = value
+			} else if ok, index, value := scrapeValue(page, i, "<td class=\"note-streak\">", '<'); ok {
+				i = index
+				result[challengeIndex].Scores[len(result[challengeIndex].Scores)-1].NoteStreak = value
 			}
 		}
 	}

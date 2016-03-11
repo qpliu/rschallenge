@@ -7,6 +7,11 @@ import (
 	"strings"
 )
 
+type Challenge struct {
+	Artist, Title, ChallengeId, Arrangement string
+	Scores                                  []Score
+}
+
 type Score struct {
 	Name, Difficulty, Score, Accuracy, NoteStreak string
 	Pct100, Streak, Notes, Hits                   int
@@ -64,9 +69,10 @@ func ComputeScores(scores []Score) {
 	}
 }
 
-func PrintScores(w io.Writer, scores []Score) {
+func PrintChallenge(w io.Writer, challenge Challenge) {
+	fmt.Fprintf(w, "%s - %s - %s\n", challenge.Artist, challenge.Title, challenge.Arrangement)
 	fmt.Fprintf(w, "%20.20s %10.10s %11.11s %5.5s %4.4s Notes\n", "User", "Difficulty", "Score", "%", "NS")
-	for _, score := range scores {
+	for _, score := range challenge.Scores {
 		fmt.Fprintf(w, "%20.20s %10.10s %11.11s %5.5s %4.4s %d/%d (%d)\n", score.Name, score.Difficulty, score.Score, score.Accuracy, score.NoteStreak, score.Hits, score.Notes, score.Hits-score.Notes)
 	}
 }

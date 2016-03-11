@@ -6,7 +6,8 @@ import (
 )
 
 const (
-	EXPECTED_PRINT = `                User Difficulty       Score     %   NS Notes
+	EXPECTED_PRINT = `The Black Keys - Little Black Submarines - guitar
+                User Difficulty       Score     %   NS Notes
         elemenohpenc       hard     221,835 91.38   51 743/813 (-70)
      RollingStone222       hard     376,390 93.84  105 763/813 (-50)
              Ezzy911       hard     261,882 91.75   62 746/813 (-67)
@@ -41,23 +42,23 @@ func TestScore(t *testing.T) {
 			t.Errorf("Expected hits %d, got %d", expectedHits, score.Hits)
 		}
 	}
-	scores := ScrapeScores(CHALLENGE_PAGE)
-	if len(scores) != 10 {
-		t.Errorf("Expected 10 scores, got %d", len(scores))
+	challenge := ScrapeChallenge(CHALLENGE_PAGE)
+	if len(challenge.Scores) != 10 {
+		t.Errorf("Expected 10 scores, got %d", len(challenge.Scores))
 	}
-	ComputeScores(scores)
-	check(scores[0], "elemenohpenc", "hard", 9138, 51, 813, 743)
-	check(scores[1], "RollingStone222", "hard", 9384, 105, 813, 763)
-	check(scores[2], "Ezzy911", "hard", 9175, 62, 813, 746)
-	check(scores[3], "qpliu", "hard", 9151, 76, 813, 744)
-	check(scores[4], "the_xandos", "hard", 8757, 132, 813, 712)
-	check(scores[5], "jaq-b", "medium", 9947, 150, 384, 382)
-	check(scores[6], "Sl1mehunter", "medium", 9921, 206, 384, 381)
-	check(scores[7], "Z1ronJones", "medium", 9791, 153, 384, 376)
-	check(scores[8], "Vecco34", "medium", 9453, 94, 384, 363)
-	check(scores[9], "advalencia", "easy", 9492, 97, 138, 131)
+	ComputeScores(challenge.Scores)
+	check(challenge.Scores[0], "elemenohpenc", "hard", 9138, 51, 813, 743)
+	check(challenge.Scores[1], "RollingStone222", "hard", 9384, 105, 813, 763)
+	check(challenge.Scores[2], "Ezzy911", "hard", 9175, 62, 813, 746)
+	check(challenge.Scores[3], "qpliu", "hard", 9151, 76, 813, 744)
+	check(challenge.Scores[4], "the_xandos", "hard", 8757, 132, 813, 712)
+	check(challenge.Scores[5], "jaq-b", "medium", 9947, 150, 384, 382)
+	check(challenge.Scores[6], "Sl1mehunter", "medium", 9921, 206, 384, 381)
+	check(challenge.Scores[7], "Z1ronJones", "medium", 9791, 153, 384, 376)
+	check(challenge.Scores[8], "Vecco34", "medium", 9453, 94, 384, 363)
+	check(challenge.Scores[9], "advalencia", "easy", 9492, 97, 138, 131)
 	var buf bytes.Buffer
-	PrintScores(&buf, scores)
+	PrintChallenge(&buf, challenge)
 	if buf.String() != EXPECTED_PRINT {
 		t.Errorf("Expected:\n%sGot:\n%s", EXPECTED_PRINT, buf.String())
 	}

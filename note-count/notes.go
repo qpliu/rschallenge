@@ -9,42 +9,40 @@ import (
 
 func main() {
 	if len(os.Args) > 1 {
-		for _, challenge := range os.Args[1:] {
-			showChallenge(challenge)
+		for _, challengeId := range os.Args[1:] {
+			showChallenge(challengeId)
 		}
 	} else {
 		challenges := getChallenges()
 		if len(challenges) == 4 {
-			showChallenge(challenges[0])
-			showChallenge(challenges[2])
+			showChallenge(challenges[0].ChallengeId)
+			showChallenge(challenges[2].ChallengeId)
 		} else {
 			for _, challenge := range challenges {
-				showChallenge(challenge)
+				showChallenge(challenge.ChallengeId)
 			}
 		}
 	}
 }
 
-func showChallenge(challenge string) {
-	resp, err := http.Get("http://rocksmithchallenge.com/challenges/" + challenge)
+func showChallenge(challengeId string) {
+	resp, err := http.Get("http://rocksmithchallenge.com/challenges/" + challengeId)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s: http error: %v", challenge, err)
+		fmt.Fprintf(os.Stderr, "%s: http error: %v", challengeId, err)
 		return
 	}
 	var buf bytes.Buffer
 	if _, err := buf.ReadFrom(resp.Body); err != nil {
-		fmt.Fprintf(os.Stderr, "%s: http read error: %v", challenge, err)
+		fmt.Fprintf(os.Stderr, "%s: http read error: %v", challengeId, err)
 		return
 	}
 	body := buf.String()
-	artist, title := ScrapeSong(body)
-	scores := ScrapeScores(body)
-	ComputeScores(scores)
-	fmt.Printf("%s: %s - %s\n", challenge, artist, title)
-	PrintScores(os.Stdout, scores)
+	challenge := ScrapeChallenge(body)
+	ComputeScores(challenge.Scores)
+	PrintChallenge(os.Stdout, challenge)
 }
 
-func getChallenges() []string {
+func getChallenges() []Challenge {
 	resp, err := http.Get("http://rocksmithchallenge.com/")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "http error: %v", err)
