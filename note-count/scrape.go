@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strconv"
 	"strings"
 )
 
@@ -74,6 +75,7 @@ func ScrapeChallenges(page string) []Challenge {
 	var result []Challenge
 	challengeIndex := -1
 	inResults := false
+	division := ""
 	for i := 0; i < len(page); i++ {
 		if page[i] != '<' {
 			continue
@@ -89,18 +91,29 @@ func ScrapeChallenges(page string) []Challenge {
 		if challengeIndex < 0 {
 			continue
 		}
-		if ok, index, value := scrapeValue(page, i, "<span class=\"arrangement\">", '<'); ok {
+		if ok, index, value := scrapeValue(page, i, "<img class=\"instrument\" src=\"/bundles/rsui/img/", '.'); ok {
 			i = index
 			result[challengeIndex].Arrangement = value
+		} else if ok, index, value := scrapeValue(page, i, "<span class=\"title\"", '>'); ok {
+			i = index
 			i, value = scrapeLine(page, i)
 			i, value = scrapeLine(page, i)
-			result[challengeIndex].Title = strings.TrimSpace(value)
+			value = strings.TrimSpace(value)
+			if strings.HasPrefix(value, "<") {
+				i, value = scrapeLine(page, i)
+				value = strings.TrimSpace(value)
+			}
+			result[challengeIndex].Title = value
 		} else if ok, index, value := scrapeValue(page, i, "<span class=\"artist\"", '>'); ok {
 			i = index
 			i, value = scrapeLine(page, i)
 			i, value = scrapeLine(page, i)
-			i, value = scrapeLine(page, i)
-			result[challengeIndex].Artist = strings.TrimSpace(value)
+			value = strings.TrimSpace(value)
+			if strings.HasPrefix(value, "<") {
+				i, value = scrapeLine(page, i)
+				value = strings.TrimSpace(value)
+			}
+			result[challengeIndex].Artist = value
 		}
 		if !inResults {
 			if ok, index, _ := scrapeValue(page, i, "<div class=\"result-content\"", '>'); ok {
@@ -111,10 +124,14 @@ func ScrapeChallenges(page string) []Challenge {
 			if ok, index, _ := scrapeValue(page, i, "<div class=\"result-link\"", '>'); ok {
 				i = index
 				inResults = false
+			} else if ok, index, value := scrapeValue(page, i, "<h4>Division ", '<'); ok {
+				i = index
+				division = value
 			} else if ok, index, value := scrapeValue(page, i, "<td>", '<'); ok {
 				i = index
 				result[challengeIndex].Scores = append(result[challengeIndex].Scores, Score{})
 				result[challengeIndex].Scores[len(result[challengeIndex].Scores)-1].Name = value
+				result[challengeIndex].Scores[len(result[challengeIndex].Scores)-1].Difficulty = division
 			} else if ok, index, value := scrapeValue(page, i, "<td class=\"score\">", '<'); ok {
 				i = index
 				result[challengeIndex].Scores[len(result[challengeIndex].Scores)-1].Score = value
@@ -126,6 +143,25 @@ func ScrapeChallenges(page string) []Challenge {
 				result[challengeIndex].Scores[len(result[challengeIndex].Scores)-1].NoteStreak = value
 			}
 		}
+	}
+
+	for i := range result {
+		lastDifficulty := ""
+		lastPct100 := 10000
+		difficulty := 1
+		for j := range result[i].Scores {
+			if lastDifficulty != result[i].Scores[j].Difficulty {
+				lastPct100 = 10000
+				lastDifficulty = result[i].Scores[j].Difficulty
+			}
+			pct100 := ComputePct100(result[i].Scores[j].Accuracy)
+			if pct100 > lastPct100 {
+				difficulty++
+			}
+			lastPct100 = pct100
+			result[i].Scores[j].Difficulty += "-" + strconv.Itoa(difficulty)
+		}
+		ComputeScores(result[i].Scores)
 	}
 	return result
 }

@@ -14,13 +14,8 @@ func main() {
 		}
 	} else {
 		challenges := getChallenges()
-		if len(challenges) == 4 {
-			showChallenge(challenges[0].ChallengeId)
-			showChallenge(challenges[2].ChallengeId)
-		} else {
-			for _, challenge := range challenges {
-				showChallenge(challenge.ChallengeId)
-			}
+		for _, challenge := range challenges {
+			PrintChallenge(os.Stdout, challenge)
 		}
 	}
 }
